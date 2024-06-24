@@ -24,7 +24,10 @@ function canPlayHevc(videoTestElement, options) {
 }
 
 function canPlayAv1(videoTestElement) {
-    if (browser.tizenVersion >= 5.5 || browser.web0sVersion >= 5) {
+    if (browser.tizen) {
+        return false;
+    }
+    if (browser.web0sVersion >= 5) {
         return true;
     }
 
@@ -164,6 +167,9 @@ function canPlayAudioFormat(format) {
         if (browser.web0s) {
             // canPlayType lies about OPUS support
             return browser.web0sVersion >= 3.5;
+        }
+        if (browser.tizen) {
+        return false;
         }
 
         typeString = 'audio/ogg; codecs="opus"';
